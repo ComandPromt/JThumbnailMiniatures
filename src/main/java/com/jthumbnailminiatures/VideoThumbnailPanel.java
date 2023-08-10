@@ -1,3 +1,5 @@
+package com.jthumbnailminiatures;
+
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
