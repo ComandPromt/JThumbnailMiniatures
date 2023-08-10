@@ -12,11 +12,17 @@ import javax.swing.JPanel;
 
 public class JThumbnail extends JPanel {
 
-	JLabel lblNewLabel;
+	private JLabel lblNewLabel;
 
-	File archivo;
+	private File archivo;
 
-	public JThumbnail(final String file) {
+	public JLabel getThumbnail() {
+
+		return lblNewLabel;
+
+	}
+
+	public JThumbnail(String file) {
 
 		setBackground(Color.GRAY);
 
