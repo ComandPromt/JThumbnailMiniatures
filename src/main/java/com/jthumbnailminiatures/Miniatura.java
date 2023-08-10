@@ -36,6 +36,12 @@ public class Miniatura extends JLabel {
 
 	public void setColor(Color color) {
 
+		if (color == null) {
+
+			color = Color.BLACK;
+
+		}
+
 		this.color = color;
 
 	}

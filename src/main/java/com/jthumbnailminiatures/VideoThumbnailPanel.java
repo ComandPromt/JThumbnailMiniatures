@@ -1,12 +1,13 @@
 package com.jthumbnailminiatures;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.image.BufferedImage;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import org.bytedeco.javacv.FFmpegFrameGrabber;
@@ -21,67 +22,61 @@ public class VideoThumbnailPanel extends JLabel {
 
 	private int alto;
 
-	String videoPath;
+	private String videoPath;
 
-	FFmpegFrameGrabber grabber;
+	private FFmpegFrameGrabber grabber;
 
-	int frameRate;
+	private Java2DFrameConverter converter;
 
-	int totalFrames;
+	private long startTime;
 
-	Java2DFrameConverter converter;
+	private long currentTime;
 
-	long startTime;
+	private Color color;
 
-	BufferedImage bufferedImage;
+	private Frame videoFrame;
 
-	long currentTime;
+	private int grosor;
 
-	long elapsedTime;
+	public void setColor(Color color) {
 
-	Icon thumbnailIcon;
+		this.color = color;
 
-	Frame videoFrame;
+	}
 
-	public void generateThumbnailLoop(String videoPath, int width, int height) {
+	public void setBorder(Color color, int thickness) {
 
-		grabber = new FFmpegFrameGrabber(videoPath);
+		if (thickness < 0) {
 
-		try {
-
-			grabber.start();
-
-			frameRate = (int) grabber.getFrameRate();
-
-			totalFrames = frameRate;
-
-			converter = new Java2DFrameConverter();
-
-			startTime = System.currentTimeMillis();
-
-			currentTime = System.currentTimeMillis();
-
-			elapsedTime = currentTime - startTime;
-
-			videoFrame = grabber.grab();
-
-			grabber.setFrameNumber(0);
-
-			startTime = currentTime;
-
-			bufferedImage = converter.getBufferedImage(videoFrame);
-
-			thumbnailIcon = new ImageIcon(bufferedImage.getScaledInstance(width, height, Image.SCALE_SMOOTH));
-
-			setIcon(thumbnailIcon);
-
-			grabber.stop();
+			thickness = 0;
 
 		}
 
-		catch (Exception e) {
+		if (color == null) {
+
+			color = Color.BLACK;
 
 		}
+
+		this.color = color;
+
+		grosor = thickness;
+
+		repaint();
+
+	}
+
+	public void setGrosor(int grosor) {
+
+		if (grosor < 0) {
+
+			grosor = 0;
+
+		}
+
+		this.grosor = grosor;
+
+		repaint();
 
 	}
 
@@ -99,11 +94,61 @@ public class VideoThumbnailPanel extends JLabel {
 
 				alto = getHeight();
 
-				generateThumbnailLoop(videoPath, ancho, alto);
+				repaint();
 
 			}
 
 		});
+
+	}
+
+	@Override
+	public void paint(Graphics g) {
+
+		try {
+
+			int mitad = grosor / 2;
+
+			if (mitad == 0) {
+
+				mitad = 1;
+
+			}
+
+			Graphics2D g2 = (Graphics2D) g;
+
+			g2.setStroke(new BasicStroke(grosor));
+
+			g2.setColor(color);
+
+			g2.drawRect(0, 0, ancho, alto);
+
+			grabber = new FFmpegFrameGrabber(videoPath);
+
+			grabber.start();
+
+			converter = new Java2DFrameConverter();
+
+			startTime = System.currentTimeMillis();
+
+			currentTime = System.currentTimeMillis();
+
+			videoFrame = grabber.grab();
+
+			grabber.setFrameNumber(0);
+
+			startTime = currentTime;
+
+			g2.drawImage((converter.getBufferedImage(videoFrame)).getScaledInstance(ancho - grosor, alto - grosor,
+					Image.SCALE_SMOOTH), mitad, mitad, null);
+
+			grabber.stop();
+
+		}
+
+		catch (Exception e) {
+
+		}
 
 	}
 

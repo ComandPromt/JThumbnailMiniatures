@@ -18,13 +18,7 @@ public class JThumbnail extends JPanel {
 
 	private File archivo;
 
-	public JLabel getThumbnail() {
-
-		return lblNewLabel;
-
-	}
-
-	public JThumbnail(String file) {
+	public JThumbnail(final String file, final Color color, final int thickness) {
 
 		setBackground(Color.GRAY);
 
@@ -48,12 +42,15 @@ public class JThumbnail extends JPanel {
 
 							lblNewLabel = new Miniatura(file);
 
+							((Miniatura) lblNewLabel).setBorder(color, thickness);
+
 						}
 
 						else {
 
 							lblNewLabel = new VideoThumbnailPanel(file);
 
+							((VideoThumbnailPanel) lblNewLabel).setBorder(color, thickness);
 						}
 
 					}
