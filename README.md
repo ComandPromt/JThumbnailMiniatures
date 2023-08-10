@@ -1,13 +1,19 @@
 # JThumbnailMiniatures
 
+## Create thumbnails to your images and videos. The library detects if it is an image or a video and displays its thumbnail
+
 ~~~java
 
 import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 
 import javax.swing.GroupLayout;
+
 import javax.swing.GroupLayout.Alignment;
+
 import javax.swing.JFrame;
+
 import javax.swing.event.ChangeEvent;
 
 @SuppressWarnings("all")
@@ -55,10 +61,12 @@ public class Main extends javax.swing.JFrame {
 		JThumbnail btnNewButton = new JThumbnail(videoPath);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+
 		layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addGap(38)
 						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 418, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(40, Short.MAX_VALUE)));
+
 		layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup().addGap(27)
 						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 348, GroupLayout.PREFERRED_SIZE)
@@ -79,6 +87,7 @@ public class Main extends javax.swing.JFrame {
 	public void stateChanged(ChangeEvent e) {
 
 	}
+
 }
 
 ~~~
