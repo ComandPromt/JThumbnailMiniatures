@@ -28,10 +28,6 @@ public class VideoThumbnailPanel extends JLabel {
 
 	private Java2DFrameConverter converter;
 
-	private long startTime;
-
-	private long currentTime;
-
 	private Color color;
 
 	private Frame videoFrame;
@@ -129,15 +125,9 @@ public class VideoThumbnailPanel extends JLabel {
 
 			converter = new Java2DFrameConverter();
 
-			startTime = System.currentTimeMillis();
-
-			currentTime = System.currentTimeMillis();
-
 			videoFrame = grabber.grab();
 
 			grabber.setFrameNumber(0);
-
-			startTime = currentTime;
 
 			g2.drawImage((converter.getBufferedImage(videoFrame)).getScaledInstance(ancho - grosor, alto - grosor,
 					Image.SCALE_SMOOTH), mitad, mitad, null);
