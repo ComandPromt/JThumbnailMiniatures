@@ -58,7 +58,7 @@ public class Main extends javax.swing.JFrame {
 
 		String videoPath = "path_of_file";
 
-		JThumbnail btnNewButton = new JThumbnail(videoPath);
+		JThumbnail btnNewButton = new JThumbnail(videoPath,Color.BLUE,4);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 
