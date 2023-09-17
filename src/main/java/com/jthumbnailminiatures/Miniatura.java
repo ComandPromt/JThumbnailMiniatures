@@ -34,6 +34,24 @@ public class Miniatura extends JLabel {
 
 	private Color color;
 
+	public String getImage() {
+
+		return image;
+
+	}
+
+	public void setImage(String image) {
+
+		if (!this.image.equals(image)) {
+
+			this.image = image;
+
+			repaint();
+
+		}
+
+	}
+
 	public void setColor(Color color) {
 
 		if (color == null) {
@@ -88,7 +106,7 @@ public class Miniatura extends JLabel {
 
 	}
 
-	public void generateThumbnailLoop(String videoPath, int width, int height) {
+	public void generateThumbnailLoop(String videoPath) {
 
 		FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(videoPath);
 

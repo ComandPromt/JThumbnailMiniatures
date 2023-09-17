@@ -34,6 +34,18 @@ public class VideoThumbnailPanel extends JLabel {
 
 	private int grosor;
 
+	public void setImage(String videoPath) {
+
+		if (!this.videoPath.equals(videoPath)) {
+
+			this.videoPath = videoPath;
+
+			repaint();
+
+		}
+
+	}
+
 	public void setColor(Color color) {
 
 		this.color = color;
