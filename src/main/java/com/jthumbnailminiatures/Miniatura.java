@@ -178,6 +178,8 @@ public class Miniatura extends JLabel {
 
 		try {
 
+			Graphics2D g2 = (Graphics2D) g;
+
 			int mitad = grosor / 2;
 
 			if (mitad == 0) {
@@ -186,13 +188,15 @@ public class Miniatura extends JLabel {
 
 			}
 
-			Graphics2D g2 = (Graphics2D) g;
-
-			g2.setStroke(new BasicStroke(grosor));
-
 			g2.setColor(color);
 
-			g2.drawRect(0, 0, ancho, alto);
+			if (grosor > 0) {
+
+				g2.setStroke(new BasicStroke(grosor));
+
+				g2.drawRect(0, 0, ancho - grosor, alto - grosor);
+
+			}
 
 			g2.drawImage(
 					ImageIO.read(new File(image)).getScaledInstance(ancho - grosor, alto - grosor, Image.SCALE_SMOOTH),
